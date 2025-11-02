@@ -1,0 +1,125 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background-color: #f8f8f8;
+}
+
+header {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 15px 0;
+}
+
+nav button {
+  margin: 5px;
+  padding: 10px 15px;
+  border: none;
+  background: #555;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+nav button:hover {
+  background: #ff6600;
+}
+
+.product-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  padding: 20px;
+}
+
+.product {
+  background: white;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+
+}
+
+.product img {
+  width: 190px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  size: 50px;
+}
+
+.product h3 {
+  margin: 10px 0 5px;
+}
+
+.product p {
+  color: #666;
+}
+
+#order {
+    background-color: rgb(94, 94, 255);
+    border:solid navy;
+    padding: 10px 15px ;
+    border-radius: 25px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    justify-content: center;
+}
+    
+ #order {
+    position: relative;
+  overflow: hidden;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+ }
+
+
+/* Shine effect */
+#order::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.6), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.5s;
+  z-index: 1;
+}
+
+#order:hover::before {
+  left: 125%;
+  transition: left 0.5s;
+}
+#order {
+  display: block;
+  margin: 10px auto; 
+  padding: 10px 25px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.product-container img {
+  transition: transform 0.3s ease;
+}
+
+.product-container img:hover {
+  transform: translateY(-10px);
+}
+img[src*="https://dlcdnwebimgs.asus.com/gain/B7F82858-38C0-4A42-B751-5DE480B0ABB6"] {
+  width: 230px;
+  height: 200px;
+  
+}
+img[src*="https://rukminim2.flixcart.com/image/480/640/xif0q/mobile/v/a/b/-original-imahggexextjawug.jpeg?q=90"] {
+  width: 165px;
+  height:200px;
+  
+}
+
+

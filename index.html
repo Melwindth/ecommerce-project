@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ecommerce Product Listing</title>
+  <link rel="stylesheet" href="style.css">
+  <script>
+    function placeOrder(){
+        alert("Your Order Has Been Placed Successfully!")
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <h1>My E-  Commerce Store</h1>
+    <nav>
+      <button onclick="filterCategory('all')">All</button>
+      <button onclick="filterCategory('electronics')">Electronics</button>
+      <button onclick="filterCategory('clothing')">Clothing</button>
+      <button onclick="filterCategory('accessories')">Accessories</button>
+    </nav>
+  </header>
+
+  <section class="product-container" id="product-list"></section>
+
+  <script src="script.js"></script>
+  <button id="order" , onclick="placeOrder()" > PLACE ORDER!</button>
+</body>
+
+</html>
