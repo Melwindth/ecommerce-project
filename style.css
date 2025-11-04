@@ -1,5 +1,18 @@
-/* Loader Styles */
+/* Body and Background */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(0,150,255,0.05) 0%, transparent 70%),
+    radial-gradient(circle at 80% 70%, rgba(255,100,150,0.05) 0%, transparent 70%),
+    radial-gradient(circle at 50% 50%, rgba(150,255,100,0.03) 0%, transparent 80%);
+  background-color: #f8f8f8;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: #222;
+}
 
+/* Loader Styles */
 #loader-overlay {
   position: fixed;
   top: 0; left: 0;
@@ -52,27 +65,21 @@
   100% { text-shadow: 0 0 30px #00ffff; color: #00fff7;}
 }
 
-
-/* General Styles */
-
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  background-color: #f8f8f8;
-}
-
+/* Header and Navigation */
 header {
-  background-color: #333;
+  background-color: rgba(51,51,51,0.85);
   color: white;
   text-align: center;
   padding: 15px 0;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
 nav button {
   margin: 5px;
   padding: 10px 15px;
   border: none;
-  background: #555;
+  background: rgba(85,85,85,0.85);
   color: white;
   cursor: pointer;
   border-radius: 5px;
@@ -83,6 +90,7 @@ nav button:hover {
   background: #ff6600;
 }
 
+/* Product Container and Products */
 .product-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -100,6 +108,7 @@ nav button:hover {
   transition: background-color 0.7s ease;
 }
 
+/* Background animation for add to cart */
 .product.animate-bg {
   animation: bgGlow 1s ease forwards;
 }
@@ -139,6 +148,7 @@ nav button:hover {
   color: #666;
 }
 
+/* Button with shining effect on hover */
 .product button {
   position: relative;
   background: #007bff;
@@ -150,8 +160,10 @@ nav button:hover {
   margin-top: 10px;
   overflow: hidden;
   z-index: 0;
+  transition: background 0.4s ease;
 }
 
+/* Shining effect */
 .product button::before {
   content: '';
   position: absolute;
@@ -165,13 +177,16 @@ nav button:hover {
   z-index: -1;
 }
 
+.product button:hover {
+  background: #0056b3;
+}
+
 .product button:hover::before {
   left: 125%;
   transition: all 0.7s ease;
 }
 
-/* Cart styles */
-
+/* Cart Styles */
 #cart-container {
   position: fixed;
   top: 80px;
@@ -250,7 +265,7 @@ nav button:hover {
   cursor: pointer;
 }
 
-/* Optional: Improve mobile experience */
+/* Mobile support */
 @media (max-width: 600px) {
   #cart-container, #cart-toggle-btn {
     right: 2vw;
@@ -259,4 +274,38 @@ nav button:hover {
     min-width: 180px;
     max-width: 360px;
   }
+}
+.product img:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.product {
+  animation: slideIn 0.5s ease forwards;
+}
+.loader-circle {
+  border: 6px solid #eee;
+  border-top: 6px solid #007bff;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+  margin: auto;
+  margin-top: 20vh;
+}
+
+@keyframes spin {
+  0%{transform: rotate(0deg);}
+  100%{transform: rotate(360deg);}
 }

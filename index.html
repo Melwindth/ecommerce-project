@@ -1,43 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ecommerce Product Listing</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ecommerce Product Listing</title>
+<link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Loader overlay -->
-  <div id="loader-overlay">
-    <div class="loader-text">E STORE</div>
-    <div class="loader-bar">
-      <div></div><div></div><div></div><div></div><div></div>
-    </div>
+  <div class="loader-circle"></div>
+
+
+<!-- Loader -->
+<div id="loader-overlay">
+  <div class="loader-text">E STORE</div>
+  <div class="loader-bar">
+    <div></div><div></div><div></div><div></div><div></div>
   </div>
+</div>
 
-  <header>
-    <h1>My E- Commerce Store</h1>
-    <nav>
-      <button onclick="filterCategory('all')">All</button>
-      <button onclick="filterCategory('electronics')">Electronics</button>
-      <button onclick="filterCategory('clothing')">Clothing</button>
-      <button onclick="filterCategory('accessories')">Accessories</button>
-    </nav>
-  </header>
+<header>
+  <h1>My E- Commerce Store</h1>
+  <nav>
+    <button onclick="filterCategory('all')">All</button>
+    <button onclick="filterCategory('electronics')">Electronics</button>
+    <button onclick="filterCategory('clothing')">Clothing</button>
+    <button onclick="filterCategory('accessories')">Accessories</button>
+  </nav>
+</header>
 
-  <!-- Cart Toggle Button -->
-  <button id="cart-toggle-btn" style="display:none; position:fixed; top:90px; right:30px; z-index:1001;">🛒 Cart</button>
-  <!-- Cart Container -->
-  <section id="cart-container" style="display:none;">
-    <h2>Your Cart</h2>
-    <ul id="cart-list"></ul>
-    <p id="cart-total"></p>
-  </section>
+<button id="cart-toggle-btn" style="display:none; position:fixed; top:90px; right:30px; z-index:1001;">🛒 Cart</button>
 
-  <section class="product-container" id="product-list"></section>
+<section id="cart-container" style="display:none;">
+  <h2>Your Cart</h2>
+  <ul id="cart-list"></ul>
+  <p id="cart-total"></p>
+</section>
 
-  <button id="order" onclick="clearCart()">Clear Cart!</button>
+<section class="product-container" id="product-list"></section>
 
-  <script src="script.js"></script>
+<button id="order" onclick="clearCart()">Clear Cart!</button>
+
+<script src="script.js"></script>
 </body>
 </html>
