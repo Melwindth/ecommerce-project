@@ -20,6 +20,7 @@ function displayProducts(items) {
   items.forEach(product => {
     const div = document.createElement('div');
     div.classList.add('product');
+    div.dataset.productId = product.id;
     div.innerHTML = `
       <img src="${product.image}" alt="${product.name}">
       <h3>${product.name}</h3>
@@ -35,6 +36,13 @@ function addToCart(id) {
   if (product) {
     cart.push(product);
     displayCart();
+
+    // Animate product background
+    const productDiv = document.querySelector(`.product[data-product-id="${id}"]`);
+    if (productDiv) {
+      productDiv.classList.add('animate-bg');
+      setTimeout(() => productDiv.classList.remove('animate-bg'), 1000);
+    }
   }
 }
 
@@ -48,7 +56,7 @@ function displayCart() {
   cartContainer.style.display = "block";
   cartContainer.classList.add('active');
   cartToggleBtn.style.display = "none";
-  
+
   cartList.innerHTML = "";
   let total = 0;
   cart.forEach((item, index) => {
@@ -67,13 +75,11 @@ function displayCart() {
   cartTotal.textContent = "Total: ₹" + total;
 }
 
-// Clear Cart functionality
 function clearCart() {
   cart = [];
   displayCart();
 }
 
-// Filters
 function filterCategory(category) {
   if (category === 'all') {
     displayProducts(products);
@@ -83,43 +89,27 @@ function filterCategory(category) {
   }
 }
 
-// Cart toggle button click, show cart
 cartToggleBtn.onclick = function() {
   cartContainer.classList.add('active');
   cartToggleBtn.style.display = "none";
   cartContainer.style.display = "block";
 };
 
-// Hide cart if clicking outside
 document.addEventListener('click', function(e) {
   if (cart.length === 0) return;
-  // Ignore if cart or button is clicked
-  if (!cartContainer.contains(e.target) && e.target !== cartToggleBtn && !e.target.classList.contains('product') && !e.target.classList.contains('product button')) {
+  if (!cartContainer.contains(e.target) && e.target !== cartToggleBtn && !e.target.closest('.product button')) {
     cartContainer.classList.remove('active');
     cartContainer.style.display = "none";
     cartToggleBtn.style.display = "block";
   }
 });
 
-// Always show cart toggle only if cart not active & cart not empty
-function handleCartBtn() {
-  if (cart.length > 0 && cartContainer.style.display !== "block") {
-    cartToggleBtn.style.display = "block";
-  }
-}
-
-// Observer for cart state change, auto show toggle button when items exist and cart not open
-const cartObserver = new MutationObserver(handleCartBtn);
-cartObserver.observe(cartList, { childList: true });
+window.addEventListener('load', () => {
+  const loader = document.getElementById('loader-overlay');
+  loader.style.opacity = '0';
+  setTimeout(() => {
+    loader.style.display = 'none';
+  }, 1500);
+});
 
 displayProducts(products);
-window.clearCart = function() {
-  cart = [];
-  displayCart();
-}
-window.addEventListener('load', function() {
-  document.getElementById('loader-overlay').style.opacity = '0';
-  setTimeout(function() {
-    document.getElementById('loader-overlay').style.display = 'none';
-  }, 700);
-});
