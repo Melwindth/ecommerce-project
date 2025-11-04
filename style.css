@@ -38,7 +38,6 @@ nav button:hover {
   padding: 15px;
   text-align: center;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-
 }
 
 .product img {
@@ -46,40 +45,45 @@ nav button:hover {
   height: 200px;
   object-fit: cover;
   border-radius: 8px;
-  size: 50px;
+  transition: transform 0.3s ease;
+}
+
+.product img:hover {
+  transform: translateY(-10px);
 }
 
 .product h3 {
   margin: 10px 0 5px;
 }
-
 .product p {
   color: #666;
 }
-
-#order {
-    background-color: rgb(94, 94, 255);
-    border:solid navy;
-    padding: 10px 15px ;
-    border-radius: 25px;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    justify-content: center;
-}
-    
- #order {
-    position: relative;
-  overflow: hidden;
+.product button {
   background-color: #007bff;
   color: white;
   border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+.product button:hover {
+  background-color: #0056b3;
+}
+
+#order {
+  background-color: #ff0000;
+  color: white;
+  border: none;
+  border-radius: 25px;
   padding: 10px 25px;
   font-size: 16px;
   cursor: pointer;
-  border-radius: 5px;
- }
-
-
-/* Shine effect */
+  display: block;
+  margin: 10px auto; 
+  position: relative;
+  overflow: hidden;
+}
 #order::before {
   content: "";
   position: absolute;
@@ -92,34 +96,128 @@ nav button:hover {
   transition: left 0.5s;
   z-index: 1;
 }
-
 #order:hover::before {
   left: 125%;
   transition: left 0.5s;
 }
-#order {
+
+/* Cart styles */
+#cart-container {
+  position: fixed;
+  top: 80px;
+  right: -310px;
+  width: 280px;
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  max-height: 80vh;
+  overflow-y: auto;
+  z-index: 1000;
+  font-family: Arial, sans-serif;
+  color: #333;
+  transition: right 0.3s cubic-bezier(.69,-0.55,.27,1.55);
+}
+
+#cart-container.active {
+  right: 20px;
   display: block;
-  margin: 10px auto; 
-  padding: 10px 25px;
+}
+
+#cart-container h2 {
+  margin-top: 0;
+  font-size: 20px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+#cart-list {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 10px;
+}
+#cart-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 8px 0;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 5px;
+  align-items: center;
+}
+#cart-list button {
+  background: #d9534f;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 3px 7px;
+  font-size: 12px;
+}
+#cart-list button:hover {
+  background: #c9302c;
+}
+#cart-total {
+  font-weight: bold;
+  margin-top: 15px;
+  text-align: right;
   font-size: 16px;
+}
+
+#cart-toggle-btn {
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 10px 20px;
+  font-size: 18px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
   cursor: pointer;
 }
-.product-container img {
-  transition: transform 0.3s ease;
+
+/* Optional: Improve mobile experience */
+@media (max-width: 600px) {
+  #cart-container, #cart-toggle-btn {
+    right: 2vw;
+    top: 60px;
+    width: 90vw;
+    min-width: 180px;
+    max-width: 360px;
+  }
+}
+#loader-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #181818;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.7s;
 }
 
-.product-container img:hover {
-  transform: translateY(-10px);
-}
-img[src*="https://dlcdnwebimgs.asus.com/gain/B7F82858-38C0-4A42-B751-5DE480B0ABB6"] {
-  width: 230px;
-  height: 200px;
-  
-}
-img[src*="https://rukminim2.flixcart.com/image/480/640/xif0q/mobile/v/a/b/-original-imahggexextjawug.jpeg?q=90"] {
-  width: 165px;
-  height:200px;
-  
+.loader span {
+  font-family: monospace, 'Roboto Mono', Consolas;
+  color: #15fafe;
+  font-size: 48px;
+  letter-spacing: 4px;
+  animation: flicker 1.2s infinite alternate;
+  display: inline-block;
+  opacity: 0.85;
+  text-shadow: 0 0 15px #12eaea88;
 }
 
+.loader span:nth-child(2) { animation-delay: 0.18s; }
+.loader span:nth-child(3) { animation-delay: 0.36s; }
+.loader span:nth-child(4) { animation-delay: 0.54s; }
+.loader span:nth-child(5) { animation-delay: 0.72s; }
+.loader span:nth-child(6) { animation-delay: 0.82s; }
+.loader span:nth-child(7) { animation-delay: 1s; }
 
+@keyframes flicker {
+  0%   { opacity: 0.7; text-shadow: 0 0 15px #12eaea; }
+  50%  { opacity: 1; text-shadow: 0 0 30px #00fff7, 0 0 10px #15fafe88;}
+  100% { opacity: 0.6; text-shadow: 0 0 5px #181818; }
+}

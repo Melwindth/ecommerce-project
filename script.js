@@ -8,6 +8,12 @@ const products = [
 ];
 
 const productList = document.getElementById('product-list');
+const cartToggleBtn = document.getElementById('cart-toggle-btn');
+const cartContainer = document.getElementById('cart-container');
+const cartList = document.getElementById('cart-list');
+const cartTotal = document.getElementById('cart-total');
+
+let cart = [];
 
 function displayProducts(items) {
   productList.innerHTML = "";
@@ -18,11 +24,56 @@ function displayProducts(items) {
       <img src="${product.image}" alt="${product.name}">
       <h3>${product.name}</h3>
       <p>₹${product.price}</p>
+      <button onclick="addToCart(${product.id})">Add to Cart</button>
     `;
     productList.appendChild(div);
   });
 }
 
+function addToCart(id) {
+  const product = products.find(p => p.id === id);
+  if (product) {
+    cart.push(product);
+    displayCart();
+  }
+}
+
+function displayCart() {
+  if (cart.length === 0) {
+    cartContainer.classList.remove('active');
+    cartContainer.style.display = "none";
+    cartToggleBtn.style.display = "none";
+    return;
+  }
+  cartContainer.style.display = "block";
+  cartContainer.classList.add('active');
+  cartToggleBtn.style.display = "none";
+  
+  cartList.innerHTML = "";
+  let total = 0;
+  cart.forEach((item, index) => {
+    total += item.price;
+    const li = document.createElement('li');
+    li.textContent = `${item.name} - ₹${item.price} `;
+    const removeBtn = document.createElement('button');
+    removeBtn.textContent = "Remove";
+    removeBtn.onclick = () => {
+      cart.splice(index, 1);
+      displayCart();
+    };
+    li.appendChild(removeBtn);
+    cartList.appendChild(li);
+  });
+  cartTotal.textContent = "Total: ₹" + total;
+}
+
+// Clear Cart functionality
+function clearCart() {
+  cart = [];
+  displayCart();
+}
+
+// Filters
 function filterCategory(category) {
   if (category === 'all') {
     displayProducts(products);
@@ -32,4 +83,43 @@ function filterCategory(category) {
   }
 }
 
+// Cart toggle button click, show cart
+cartToggleBtn.onclick = function() {
+  cartContainer.classList.add('active');
+  cartToggleBtn.style.display = "none";
+  cartContainer.style.display = "block";
+};
+
+// Hide cart if clicking outside
+document.addEventListener('click', function(e) {
+  if (cart.length === 0) return;
+  // Ignore if cart or button is clicked
+  if (!cartContainer.contains(e.target) && e.target !== cartToggleBtn && !e.target.classList.contains('product') && !e.target.classList.contains('product button')) {
+    cartContainer.classList.remove('active');
+    cartContainer.style.display = "none";
+    cartToggleBtn.style.display = "block";
+  }
+});
+
+// Always show cart toggle only if cart not active & cart not empty
+function handleCartBtn() {
+  if (cart.length > 0 && cartContainer.style.display !== "block") {
+    cartToggleBtn.style.display = "block";
+  }
+}
+
+// Observer for cart state change, auto show toggle button when items exist and cart not open
+const cartObserver = new MutationObserver(handleCartBtn);
+cartObserver.observe(cartList, { childList: true });
+
 displayProducts(products);
+window.clearCart = function() {
+  cart = [];
+  displayCart();
+}
+window.addEventListener('load', function() {
+  document.getElementById('loader-overlay').style.opacity = '0';
+  setTimeout(function() {
+    document.getElementById('loader-overlay').style.display = 'none';
+  }, 700);
+});
